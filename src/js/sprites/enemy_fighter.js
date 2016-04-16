@@ -1,7 +1,6 @@
 'use strict';
 
-// const MOVE_SPEED = 125;
-const MOVE_SPEED = 40;
+const MOVE_SPEED = 125;
 const FUZZY_EPSILON = 3;
 const MAX_HEALTH = 3;
 
@@ -55,16 +54,14 @@ EnemyFighter.prototype.update = function () {
 
         this.currentWaypoint += 1;
         if (this.currentWaypoint >= this.path.length) {
-            this.kill(); // TODO: temp
+            this.kill();
         }
     }
 };
 
 EnemyFighter.prototype.hit = function(energy) {
     this.damage(energy);
-    if (this.alive) {
-        this.flash();
-    }
+    this.flash();
 };
 
 EnemyFighter.prototype.flash = function () {

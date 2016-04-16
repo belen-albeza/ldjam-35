@@ -32,8 +32,10 @@ var PreloaderScene = {
 
         // load here the assets for the game
         this.game.load.image('background', 'images/background.png');
-        this.game.load.image('ship:base', 'images/ship_base.png');
+        this.game.load.image('ship:fighter', 'images/ship_base.png');
+        this.game.load.image('ship:bomber', 'images/ship_bomber.png');
         this.game.load.image('bullet', 'images/bullet.png');
+        this.game.load.image('bomb', 'images/bomb.png');
         this.game.load.spritesheet('enemy:fighter', 'images/enemy00.png',
             18, 18);
     },
