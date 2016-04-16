@@ -32,8 +32,19 @@ Ship.prototype.move = function (dirX, dirY) {
 Ship.prototype.shoot = function (group) {
     if (this.elapsed - this.lastTimestamp > 1 / CADENCE) {
         // spawn bullet
-        let bullet = new Bullet(this.game, this.x, this.y);
-        group.add(bullet);
+        let x = this.x + this.width / 2;
+        let y = this.y;
+
+        let bullet = group.getFirstExists(false);
+        if (bullet) {
+            bullet.reset(x, y);
+        }
+        else {
+            bullet = new Bullet(this.game, x, y);
+            group.add(bullet);
+        }
+
+        // update timestamp
         this.lastTimestamp = this.elapsed;
     }
 };
