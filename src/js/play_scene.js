@@ -2,6 +2,7 @@
 
 const Ship = require('./sprites/ship.js');
 const EnemyFighter = require('./sprites/enemy_fighter.js');
+const Wave = require('./wave.js');
 
 let PlayScene = {};
 
@@ -23,7 +24,11 @@ PlayScene.create = function () {
     this.fighterGroup = this.game.add.group();
 
     // TODO: temp
-    this.fighterGroup.add(new EnemyFighter(this.game, 350, 100));
+    let wave = new Wave(EnemyFighter, [
+        {x: 0, y: 0}, {x: 20, y: 40}, {x: 40, y: 80}, {x: 60, y: 120}
+    ], []);
+
+    wave.spawn(this.fighterGroup, 300, 40);
 };
 
 PlayScene.update = function () {

@@ -40,8 +40,7 @@ Ship.prototype.shoot = function (group) {
             bullet.reset(x, y);
         }
         else {
-            bullet = new Bullet(this.game, x, y);
-            group.add(bullet);
+            group.add(new Bullet(this.game, x, y));
         }
 
         // update timestamp
