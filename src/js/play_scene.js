@@ -25,10 +25,12 @@ PlayScene.create = function () {
 
     // TODO: temp
     let wave = new Wave(EnemyFighter, [
-        {x: 0, y: 0}, {x: 20, y: 40}, {x: 40, y: 80}, {x: 60, y: 120}
-    ], []);
+        {x: 0, y: 0}, {x: 20, y: 30}, {x: 40, y: 60}, {x: 60, y: 90}
+    ], [
+        {x: -100, y: 0}, {x: -120, y: -40}, {x: -450, y: -40}
+    ]);
 
-    wave.spawn(this.fighterGroup, 300, 40);
+    wave.spawn(this.fighterGroup, 300, 95);
 };
 
 PlayScene.update = function () {

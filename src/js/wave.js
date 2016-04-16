@@ -4,7 +4,6 @@ function Wave(enemyClass, positions, path) {
     this.enemyClass = enemyClass;
     this.positions = positions;
     this.path = path;
-    console.log(this);
 }
 
 Wave.prototype.spawn = function (group, x, y) {

@@ -5,9 +5,9 @@ var PlayScene = require('./play_scene.js');
 
 var BootScene = {
     init: function () {
-        // 3x scale
+        // 4x scale
         this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-        this.game.scale.setUserScale(3, 3);
+        // this.game.scale.setUserScale(4, 4);
         // enable crisp rendering
         this.game.renderer.renderSession.roundPixels = true;
         Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
