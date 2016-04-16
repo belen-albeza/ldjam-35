@@ -23,6 +23,8 @@ main {
 
 #game {
   border: 1px solid #333;
+  width: 960px;
+  height: 600px;
 }
 
 footer {
