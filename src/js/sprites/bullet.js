@@ -1,6 +1,7 @@
 'use strict';
 
 const MOVE_SPEED = 220;
+const ATTACK = 1;
 
 function Bullet(game, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'bullet');
@@ -11,6 +12,8 @@ function Bullet(game, x, y) {
     this.checkWorldBounds = true;
     this.outOfBoundsKill = true;
     this.reset(x, y);
+
+    this.attack = ATTACK;
 }
 
 Bullet.prototype = Object.create(Phaser.Sprite.prototype);

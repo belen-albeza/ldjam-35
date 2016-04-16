@@ -39,14 +39,29 @@ PlayScene.update = function () {
     if (this.keys.left.isDown) { dirX = -1; }
     if (this.keys.right.isDown) { dirX = 1; }
     if (this.keys.up.isDown) { dirY = -1; }
-    if (this.keys.down.isDown) { dirY = 1;}
+    if (this.keys.down.isDown) { dirY = 1; }
     this.ship.move(dirX, dirY);
 
     // shoot if button is pressed
     if (this.keys.spacebar.isDown) {
         this.ship.shoot(this.shipBullets);
     }
+
+    // handle collisions
+    this._collideBulletsVsEnemies();
 };
 
+PlayScene._collideBulletsVsEnemies = function () {
+    this.game.physics.arcade.overlap(this.shipBullets, this.fighterGroup,
+        this._hitEnemy, null, this);
+};
+
+PlayScene._hitEnemy = function (bullet, enemy) {
+    enemy.hit(bullet.attack);
+    bullet.kill();
+    if (!enemy.alive) {
+        // TODO: explosion
+    }
+};
 
 module.exports = PlayScene;

@@ -1,7 +1,9 @@
 'use strict';
 
-const MOVE_SPEED = 125;
+// const MOVE_SPEED = 125;
+const MOVE_SPEED = 40;
 const FUZZY_EPSILON = 3;
+const MAX_HEALTH = 3;
 
 function EnemyFighter(game, x, y, path) {
     Phaser.Sprite.call(this, game, x, y, 'enemy:fighter');
@@ -9,16 +11,20 @@ function EnemyFighter(game, x, y, path) {
     this.anchor.setTo(0.5);
     this.game.physics.enable(this);
 
+    this.animations.add('move', [0], 1);
+    this.animations.add('hit', [1, 2], 10);
+
+    this.animations.play('move');
+
     this.reset(x, y, path);
 }
 
 EnemyFighter.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyFighter.constructor = EnemyFighter;
 
-EnemyFighter.prototype.reset = function (x, y, path) {
-    Phaser.Sprite.prototype.reset.call(this, x, y);
 
-    // this.body.velocity.x = -MOVE_SPEED; // TODO: temp
+EnemyFighter.prototype.reset = function (x, y, path) {
+    Phaser.Sprite.prototype.reset.call(this, x, y, MAX_HEALTH);
 
     this.path = path;
     this.spawnPosition = {x: x, y: y};
@@ -52,6 +58,19 @@ EnemyFighter.prototype.update = function () {
             this.kill(); // TODO: temp
         }
     }
+};
+
+EnemyFighter.prototype.hit = function(energy) {
+    this.damage(energy);
+    if (this.alive) {
+        this.flash();
+    }
+};
+
+EnemyFighter.prototype.flash = function () {
+    this.animations.play('hit').onComplete.addOnce(function () {
+        this.animations.play('move');
+    }, this);
 };
 
 module.exports = EnemyFighter;

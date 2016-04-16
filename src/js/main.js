@@ -7,7 +7,7 @@ var BootScene = {
     init: function () {
         // 4x scale
         this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-        // this.game.scale.setUserScale(4, 4);
+        this.game.scale.setUserScale(4, 4);
         // enable crisp rendering
         this.game.renderer.renderSession.roundPixels = true;
         Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
@@ -34,7 +34,8 @@ var PreloaderScene = {
         this.game.load.image('background', 'images/background.png');
         this.game.load.image('ship:base', 'images/ship_base.png');
         this.game.load.image('bullet', 'images/bullet.png');
-        this.game.load.image('enemy:fighter', 'images/enemy00.png');
+        this.game.load.spritesheet('enemy:fighter', 'images/enemy00.png',
+            18, 18);
     },
 
     create: function () {
