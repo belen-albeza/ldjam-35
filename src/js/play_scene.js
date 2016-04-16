@@ -1,6 +1,7 @@
 'use strict';
 
 const Ship = require('./sprites/ship.js');
+const EnemyFighter = require('./sprites/enemy_fighter.js');
 
 let PlayScene = {};
 
@@ -19,6 +20,10 @@ PlayScene.create = function () {
     this.game.add.existing(this.ship);
 
     this.shipBullets = this.game.add.group();
+    this.fighterGroup = this.game.add.group();
+
+    // TODO: temp
+    this.fighterGroup.add(new EnemyFighter(this.game, 350, 100));
 };
 
 PlayScene.update = function () {

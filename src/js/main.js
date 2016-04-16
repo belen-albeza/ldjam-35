@@ -34,6 +34,7 @@ var PreloaderScene = {
         this.game.load.image('background', 'images/background.png');
         this.game.load.image('ship:base', 'images/ship_base.png');
         this.game.load.image('bullet', 'images/bullet.png');
+        this.game.load.image('enemy:fighter', 'images/enemy00.png');
     },
 
     create: function () {
