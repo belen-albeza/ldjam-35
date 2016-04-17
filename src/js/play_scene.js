@@ -77,6 +77,14 @@ PlayScene.create = function () {
         crawlers: this.game.add.group()
     };
 
+    this.hud = this.game.add.group();
+    this.scoreText = this.game.make.text(10, 10, '0 PTS', {
+        font: '20px Courier, monospace',
+        fill: '#fff'
+    });
+    this.hud.add(this.scoreText);
+    this.score = 0;
+
     this.spawnerTimer = this.game.time.create();
 
     this.spawnerTimer.loop(2000, function () {
@@ -89,18 +97,6 @@ PlayScene.create = function () {
             .spawn(this.enemies[enemyType], 1100, y);
     }, this);
     this.spawnerTimer.start();
-
-    // // TODO: temp
-    // let wave = new Wave(EnemyFighter, [
-    //     {x: 0, y: 0}, {x: 60, y: 90}, {x: 120, y: 180}, {x: 180, y: 270}
-    // ], [
-    // ]);
-    //
-    // wave.spawn(this.enemies.fighters, 1000, 285);
-    //
-    // (new Wave(EnemyCrawler, [
-    //     {x: 0, y: 0}, {x: 200, y: 0}
-    // ], [])).spawn(this.enemies.crawlers, 1100, 600);
 };
 
 PlayScene.update = function () {
@@ -171,6 +167,7 @@ PlayScene._hitEnemy = function (shot, enemy) {
     enemy.hit(shot.attack);
     shot.kill();
     if (!enemy.alive) {
+        this._addPoints(50);
         // TODO: explosion
     }
 };
@@ -189,6 +186,11 @@ PlayScene._hitShip = function () {
 PlayScene._wrathOfGod = function () {
     this.spawnerTimer.destroy();
     this.game.state.restart();
+};
+
+PlayScene._addPoints = function (points) {
+    this.score += points;
+    this.scoreText.setText(this.score + ' PTS');
 };
 
 
