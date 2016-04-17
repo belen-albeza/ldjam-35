@@ -6,6 +6,7 @@ const Ship = require('./sprites/ship.js');
 const EnemyFighter = require('./sprites/enemy_fighter.js');
 const EnemyCrawler = require('./sprites/enemy_crawler.js');
 const Wave = require('./wave.js');
+const Cloud = require('./sprites/cloud.js');
 
 const CRAWLER_PATTERNS = [
     {
@@ -69,6 +70,20 @@ PlayScene.create = function () {
 
     // create background
     this.game.add.image(0, 0, 'background');
+    // spawn clouds
+    this.clouds = this.game.add.group();
+    for (let i = 0; i < 3; i++) { // some initial clouds
+        this.clouds.add(new Cloud(
+            this.game,
+            this.game.rnd.between(0, 900),
+            this.game.rnd.between(100, 400)));
+    }
+    // keep spawning clouds
+    for (let i = 0; i < 5; i++) {
+        let cloud = this._spawnCloud();
+        cloud.events.onKilled.addOnce(this._spawnCloud, this);
+    }
+
 
     // create player's ship
     this.shipGroup = this.game.add.group();
@@ -90,9 +105,11 @@ PlayScene.create = function () {
 
     this.hud = this.game.add.group();
     this.scoreText = this.game.make.text(10, 10, '0 PTS', {
-        font: '20px Courier, monospace',
-        fill: '#fff'
+        font: '20px "Fugaz One", monospace',
+        fill: '#ffa300'
     });
+    this.scoreText.stroke = '#7e2553';
+    this.scoreText.strokeThickness = 6;
     this.hud.add(this.scoreText);
     this.score = 0;
 
@@ -221,28 +238,50 @@ PlayScene._addPoints = function (points) {
 PlayScene._showGameOver = function () {
     this.hud.visible = false;
 
-    let gameOverText = this.game.add.text(480, 250, 'Game Over', {
-        font: '40px Courier, monospace',
-        fill: '#fff'
+    let gameOverText = this.game.add.text(480, 200, 'Game Over', {
+        font: '80px "Fugaz One", monospace',
+        fill: '#ffa300'
     });
     gameOverText.anchor.setTo(0.5);
+    gameOverText.stroke = '#7e2553';
+    gameOverText.strokeThickness = 16;
 
-    let finalScoreText = this.game.add.text(480, 310, this.score + ' PTS', {
-        font: '30px Courier, monospace',
-        fill: '#fff'
+    let finalScoreText = this.game.add.text(480, 300, this.score + ' PTS', {
+        font: '30px "Fugaz One", monospace',
+        fill: '#ffa300'
     });
     finalScoreText.anchor.setTo(0.5);
+    finalScoreText.stroke = '#7e2553';
+    finalScoreText.strokeThickness = 8;
 
-    let restartText = this.game.add.text(480, 350, '- Play again -', {
-        font: '30px Courier, monospace',
-        fill: '#fff'
+    let restartText = this.game.add.text(480, 360, '- Play again -', {
+        font: '30px "Fugaz One", monospace',
+        fill: '#ffa300'
     });
     restartText.anchor.setTo(0.5);
+    restartText.stroke = '#7e2553';
+    restartText.strokeThickness = 8;
     restartText.inputEnabled = true;
     restartText.input.useHandCursor = true;
     restartText.events.onInputUp.add(function () {
       this._wrathOfGod();
     }, this);
+};
+
+PlayScene._spawnCloud = function () {
+    let x = this.game.rnd.between(960, 1400);
+    let y = this.game.rnd.between(30, 400);
+
+    let cloud = this.clouds.getFirstExists(false);
+    if (cloud) {
+        cloud.reset(x, y);
+    }
+    else {
+        cloud = new Cloud(this.game, x, y);
+        this.clouds.add(cloud);
+    }
+
+    return cloud;
 };
 
 
