@@ -27,6 +27,7 @@ var PreloaderScene = {
         this.game.load.image('ship:bomber', 'images/ship_bomber.png');
         this.game.load.image('bullet', 'images/bullet.png');
         this.game.load.image('bomb', 'images/bomb.png');
+        this.game.load.image('crawler_bullet', 'images/crawler_bullet.png');
         this.game.load.spritesheet('enemy:fighter', 'images/enemy00.png',
             54, 54);
         this.game.load.spritesheet('enemy:crawler', 'images/enemy01.png',

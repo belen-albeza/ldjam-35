@@ -11,6 +11,7 @@ function EnemyCrawler(game, x, y) {
 
     this.anchor.setTo(0.5, 1);
     this.game.physics.enable(this);
+    this.checkWorldBounds = true;
 
     this.reset(x, y);
 }
@@ -24,6 +25,11 @@ EnemyCrawler.prototype.reset = function (x, y) {
     this.animations.play('move');
 
     this.body.velocity.x = -MOVE_SPEED;
+    this.outOfBoundsKill = false;
+
+    this.events.onEnterBounds.addOnce(function () {
+        this.outOfBoundsKill = true;
+    }, this);
 };
 
 EnemyCrawler.prototype.hit = function(energy) {

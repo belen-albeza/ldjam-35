@@ -34,9 +34,11 @@ PlayScene.create = function () {
         fighter: this.game.add.group(),
         bomber: this.game.add.group()
     };
-
     this.enemies = {
         fighters: this.game.add.group(),
+        crawlers: this.game.add.group()
+    };
+    this.enemyShots = {
         crawlers: this.game.add.group()
     };
 
@@ -51,7 +53,7 @@ PlayScene.create = function () {
 
     (new Wave(EnemyCrawler, [
         {x: 0, y: 0}, {x: 200, y: 0}
-    ], [])).spawn(this.enemies.crawlers, 1000, 600);
+    ], [])).spawn(this.enemies.crawlers, 1100, 600);
 };
 
 PlayScene.update = function () {
