@@ -7,6 +7,39 @@ const EnemyFighter = require('./sprites/enemy_fighter.js');
 const EnemyCrawler = require('./sprites/enemy_crawler.js');
 const Wave = require('./wave.js');
 
+const CRAWLER_PATTERNS = [
+    {
+        positions: [{x: 0, y: 0}],
+        range: {y: {min: 600, max: 600}}
+    }
+];
+
+const FIGHTER_PATTERNS = [
+    {
+        positions: [
+            {x: 0, y: 0}, {x: 60, y: 90}, {x: 120, y: 180}, {x: 180, y: 270}
+        ], path: [
+            {x: -300, y: 0}, {x: -360, y: -120}, {x: -1150, y: -120}
+        ], range: {y: {min: 170, max: 300}}
+    }, {
+        positions: [
+            {x: 0, y: -40}, {x: 80, y: 40}, {x: 160, y: -40}, {x: 240, y: 40},
+            {x: 320, y: -40}
+        ], path: [
+            {x: -1150, y: 0}
+        ], range: {y: {min: 100, max: 450}}
+    }
+];
+
+const WAVE_PATTERNS = {
+    crawlers: CRAWLER_PATTERNS,
+    fighters: FIGHTER_PATTERNS
+};
+
+const ENEMY_TYPE_CHANCES = ['fighters', 'fighters', 'fighters', 'fighters',
+    'crawlers'];
+
+
 let PlayScene = {};
 
 PlayScene.init = function () {
@@ -44,18 +77,30 @@ PlayScene.create = function () {
         crawlers: this.game.add.group()
     };
 
-    // TODO: temp
-    let wave = new Wave(EnemyFighter, [
-        {x: 0, y: 0}, {x: 60, y: 90}, {x: 120, y: 180}, {x: 180, y: 270}
-    ], [
-        {x: -300, y: 0}, {x: -360, y: -120}, {x: -1150, y: -120}
-    ]);
+    this.spawnerTimer = this.game.time.create();
 
-    wave.spawn(this.enemies.fighters, 1000, 285);
+    this.spawnerTimer.loop(2000, function () {
+        let enemyType = this.game.rnd.pick(ENEMY_TYPE_CHANCES);
+        let pattern = this.game.rnd.pick(WAVE_PATTERNS[enemyType]);
+        let enemyClass = enemyType === 'fighters' ? EnemyFighter : EnemyCrawler;
 
-    (new Wave(EnemyCrawler, [
-        {x: 0, y: 0}, {x: 200, y: 0}
-    ], [])).spawn(this.enemies.crawlers, 1100, 600);
+        let y = this.game.rnd.between(pattern.range.y.min, pattern.range.y.max);
+        (new Wave(enemyClass, pattern.positions, pattern.path))
+            .spawn(this.enemies[enemyType], 1100, y);
+    }, this);
+    this.spawnerTimer.start();
+
+    // // TODO: temp
+    // let wave = new Wave(EnemyFighter, [
+    //     {x: 0, y: 0}, {x: 60, y: 90}, {x: 120, y: 180}, {x: 180, y: 270}
+    // ], [
+    // ]);
+    //
+    // wave.spawn(this.enemies.fighters, 1000, 285);
+    //
+    // (new Wave(EnemyCrawler, [
+    //     {x: 0, y: 0}, {x: 200, y: 0}
+    // ], [])).spawn(this.enemies.crawlers, 1100, 600);
 };
 
 PlayScene.update = function () {
@@ -138,11 +183,11 @@ PlayScene._hitShipWithShot = function (shot) {
 PlayScene._hitShip = function () {
     // TODO: big explosion
     // TODO: proper game over overlay
-    window.alert('Game Over');
     this._wrathOfGod();
 };
 
 PlayScene._wrathOfGod = function () {
+    this.spawnerTimer.destroy();
     this.game.state.restart();
 };
 

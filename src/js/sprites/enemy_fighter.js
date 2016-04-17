@@ -2,7 +2,7 @@
 
 const MOVE_SPEED = 375;
 const FUZZY_EPSILON = 10;
-const MAX_HEALTH = 3;
+const MAX_HEALTH = 2;
 
 function EnemyFighter(game, x, y, path) {
     Phaser.Sprite.call(this, game, x, y, 'enemy:fighter');
