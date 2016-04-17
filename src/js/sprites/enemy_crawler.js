@@ -8,8 +8,8 @@ const CrawlerBullet = require('./crawler_bullet.js');
 function EnemyCrawler(game, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'enemy:crawler');
 
-    this.animations.add('move', [0], 1);
-    this.animations.add('hit', [1, 2], 10);
+    this.animations.add('move', [0, 1, 2], 10);
+    this.animations.add('hit', [3, 4], 10);
 
     this.anchor.setTo(0.5, 1);
     this.game.physics.enable(this);
@@ -24,7 +24,7 @@ EnemyCrawler.constructor = EnemyCrawler;
 
 EnemyCrawler.prototype.reset = function (x, y) {
     Phaser.Sprite.prototype.reset.call(this, x, y, MAX_HEALTH);
-    this.animations.play('move');
+    this.animations.play('move', null, true);
 
     this.body.velocity.x = -MOVE_SPEED;
     this.outOfBoundsKill = false;
@@ -41,7 +41,7 @@ EnemyCrawler.prototype.hit = function(energy) {
 
 EnemyCrawler.prototype.flash = function () {
     this.animations.play('hit').onComplete.addOnce(function () {
-        this.animations.play('move');
+        this.animations.play('move', null, true);
     }, this);
 };
 

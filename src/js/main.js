@@ -4,6 +4,10 @@ var PlayScene = require('./play_scene.js');
 
 
 var BootScene = {
+    init: function () {
+        this.game.renderer.renderSession.roundPixels = true;
+    },
+
     preload: function () {
         // load here assets required for the loading screen
         this.game.load.image('preloader_bar', 'images/preloader_bar.png');
@@ -23,15 +27,15 @@ var PreloaderScene = {
 
         // image assets
         this.game.load.image('background', 'images/background.png');
-        this.game.load.image('ship:fighter', 'images/ship_base.png');
+        this.game.load.image('ship:fighter', 'images/ship_fighter.png');
         this.game.load.image('ship:bomber', 'images/ship_bomber.png');
-        this.game.load.image('bullet', 'images/bullet.png');
+        this.game.load.image('bullet', 'images/ship_bullet.png');
         this.game.load.image('bomb', 'images/bomb.png');
         this.game.load.image('crawler_bullet', 'images/crawler_bullet.png');
         this.game.load.spritesheet('enemy:fighter', 'images/enemy00.png',
             54, 54);
         this.game.load.spritesheet('enemy:crawler', 'images/enemy01.png',
-            96, 36);
+            90, 33);
 
         // audio assets
         this.game.load.audio('hit', 'audio/hit.wav');
