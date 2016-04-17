@@ -11,7 +11,7 @@ function EnemyFighter(game, x, y, path) {
     this.game.physics.enable(this);
 
     this.animations.add('move', [0], 1);
-    this.animations.add('hit', [1, 2], 10);
+    this.animations.add('hit', [2, 1], 10);
 
     this.reset(x, y, path);
 }
