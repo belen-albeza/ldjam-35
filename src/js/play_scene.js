@@ -13,6 +13,10 @@ const CRAWLER_PATTERNS = [
     {
         positions: [{x: 0, y: 0}],
         range: {y: {min: 600, max: 600}}
+    },
+    {
+        positions: [{x: 0, y: 0}, {x: 100, y: 0}],
+        range: {y: {min: 600, max: 600}}
     }
 ];
 
@@ -30,6 +34,14 @@ const FIGHTER_PATTERNS = [
         ], path: [
             {x: -1150, y: 0}
         ], range: {y: {min: 100, max: 450}}
+    },
+    {
+        positions: [
+            {x: 0, y: 0}, {x: 100, y: -50}, {x: 200, y: -100},
+            {x: 100, y: 50}, {x: 200, y: 100}
+        ], path: [
+            {x: -600, y: 0}, {x: -400, y: 0}, {x: -1150, y: 0}
+        ], range: {y: {min: 150, max: 450}}
     }
 ];
 
