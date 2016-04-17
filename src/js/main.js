@@ -37,6 +37,7 @@ var PreloaderScene = {
             54, 54);
         this.game.load.spritesheet('enemy:crawler', 'images/enemy01.png',
             90, 33);
+        this.game.load.spritesheet('explosion', 'images/explosion.png', 96, 96);
 
         // audio assets
         this.game.load.audio('hit', 'audio/hit.wav');
@@ -55,7 +56,7 @@ var PreloaderScene = {
 };
 
 window.onload = function () {
-  // for dev mode
+  // // for dev mode
   // document.querySelector('.overlay').style.display = 'none';
   // startGame();
 

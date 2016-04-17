@@ -7,6 +7,7 @@ const EnemyFighter = require('./sprites/enemy_fighter.js');
 const EnemyCrawler = require('./sprites/enemy_crawler.js');
 const Wave = require('./wave.js');
 const Cloud = require('./sprites/cloud.js');
+const Explosion = require('./sprites/explosion.js');
 
 const CRAWLER_PATTERNS = [
     {
@@ -83,6 +84,8 @@ PlayScene.create = function () {
         let cloud = this._spawnCloud();
         cloud.events.onKilled.addOnce(this._spawnCloud, this);
     }
+
+    this.explosions = this.game.add.group();
 
 
     // create player's ship
@@ -204,7 +207,7 @@ PlayScene._hitEnemy = function (shot, enemy) {
     if (!enemy.alive) {
         this._addPoints(50);
         this.sfx.explosion.play();
-        // TODO: create explosion
+        this._spawnExplosion(enemy.x, enemy.y);
     }
     else {
         this.sfx.hit.play('', 0, 2); // louder
@@ -218,8 +221,9 @@ PlayScene._hitShipWithShot = function (shot) {
 
 PlayScene._hitShip = function () {
     this.ship.kill();
-    // TODO: big explosion
     this.sfx.explosion.play();
+    this._spawnExplosion(this.ship.x, this.ship.y);
+
     this.spawnerTimer.stop();
     this._showGameOver();
 };
@@ -283,6 +287,20 @@ PlayScene._spawnCloud = function () {
 
     return cloud;
 };
+
+PlayScene._spawnExplosion = function (x, y) {
+    let explosion = this.explosions.getFirstExists(false);
+    if (explosion) {
+        explosion.reset(x, y);
+    }
+    else {
+        explosion = new Explosion(this.game, x, y);
+        this.explosions.add(explosion);
+    }
+
+    return explosion;
+};
+
 
 
 module.exports = PlayScene;
