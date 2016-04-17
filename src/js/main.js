@@ -54,8 +54,22 @@ var PreloaderScene = {
     }
 };
 
-
 window.onload = function () {
+  // for dev mode
+  // document.querySelector('.overlay').style.display = 'none';
+  // startGame();
+
+  // for production
+  document.getElementById('play').addEventListener('click', function (evt) {
+    evt.preventDefault();
+    // hide overlay
+    document.querySelector('.overlay').style.display = 'none';
+    startGame();
+  });
+};
+
+
+function startGame() {
     var game = new Phaser.Game(960, 600, Phaser.AUTO, 'game');
 
     game.state.add('boot', BootScene);
