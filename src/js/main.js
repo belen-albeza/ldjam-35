@@ -55,6 +55,17 @@ var PreloaderScene = {
     }
 };
 
+
+function startGame() {
+    var game = new Phaser.Game(960, 600, Phaser.AUTO, 'game');
+
+    game.state.add('boot', BootScene);
+    game.state.add('preloader', PreloaderScene);
+    game.state.add('play', PlayScene);
+
+    game.state.start('boot');
+}
+
 window.onload = function () {
   // // for dev mode
   // document.querySelector('.overlay').style.display = 'none';
@@ -67,15 +78,4 @@ window.onload = function () {
     document.querySelector('.overlay').style.display = 'none';
     startGame();
   });
-};
-
-
-function startGame() {
-    var game = new Phaser.Game(960, 600, Phaser.AUTO, 'game');
-
-    game.state.add('boot', BootScene);
-    game.state.add('preloader', PreloaderScene);
-    game.state.add('play', PlayScene);
-
-    game.state.start('boot');
 };
