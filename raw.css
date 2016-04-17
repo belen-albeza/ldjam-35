@@ -1,0 +1,99 @@
+.overlay {
+  background: url(images/background_splash.png) left top no-repeat;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: 'Fugaz One', sans-serif;
+  text-align: center;
+  color: #ffa300;
+  letter-spacing: 2px;
+  text-shadow: 4px 4px #7e2553;
+}
+
+.overlay h1 {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-size: 120px;
+}
+
+.author {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 40px;
+}
+
+.author p {
+    margin: 0;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 36px;
+  color: #fff;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5em;
+  border-radius: 8px;
+}
+.controls p {
+    margin: 0;
+}
+
+.overlay h1 {
+  -webkit-animation: pulsate ease-in 1s 0s infinite alternate;
+  -moz-animation: pulsate ease-in 1s 0s infinite alternate;
+  animation: pulsate ease-in 1s 0s infinite alternate;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@-moz-keyframes pulsate {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#play {
+  font-family: 'Fugaz One', sans-serif;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 70px;
+  font-size: 78px;
+  color: #fff;
+  outline: none !important;
+  position: absolute;
+  right: 20px;
+  bottom: 82px;
+  text-shadow: 4px 4px #7e2553;
+}
+
+#play:hover {
+  cursor: pointer;
+  color: #ffa300;
+}

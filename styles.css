@@ -10,6 +10,7 @@ body {
   font-size: 1.6rem;
   background: #fff;
   color: #000;
+  text-align: center;
 }
 
 a {
@@ -17,12 +18,16 @@ a {
 }
 
 main {
-  margin: 2rem 0;
+  margin: 2rem auto;
   text-align: center;
 }
 
 #game {
-  border: 1px solid #333;
+  border: 0;
+  width: 900px;
+  height: 600px;
+  border-radius: 1rem;
+  border: 0;
 }
 
 footer {
