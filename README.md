@@ -5,6 +5,14 @@ Ludum Dare #35 by
 
 Initial scaffolding generated with [generator-gamejam](https://github.com/belen-albeza/generator-gamejam/).
 
+## Play online!
+
+You can play online in the following mirrors:
+
+- [belenalbeza.com](http://lab.belenalbeza.com/games/ldjam-35/)
+- [Github Pages](https://belen-albeza.github.io/ldjam-35/)
+- [itch.io](https://ladybenko.itch.io/sky-panic)
+
 ## Installation
 
 ### Requirements
@@ -82,4 +90,3 @@ You can deploy to **Github Pages** with the `deploy:ghpages` task, which will bu
 ```
 gulp deploy:ghpages
 ```
-
