@@ -19,11 +19,6 @@
   font-size: 120px;
 }
 
-.overlay .tagline {
-  font-size: 90px;
-  margin-bottom: 20px;
-}
-
 .author {
   position: absolute;
   bottom: 20px;
@@ -39,7 +34,7 @@
   position: absolute;
   bottom: 20px;
   left: 20px;
-  font-size: 40px;
+  font-size: 36px;
   color: #fff;
   text-align: left;
   background: rgba(0, 0, 0, 0.5);
@@ -89,7 +84,7 @@
   border: none;
   border-radius: 25px;
   padding: 10px 70px;
-  font-size: 90px;
+  font-size: 78px;
   color: #fff;
   outline: none !important;
   position: absolute;

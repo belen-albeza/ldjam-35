@@ -137,7 +137,7 @@ PlayScene.create = function () {
 
         let y = this.game.rnd.between(pattern.range.y.min, pattern.range.y.max);
         (new Wave(enemyClass, pattern.positions, pattern.path))
-            .spawn(this.enemies[enemyType], 1100, y);
+            .spawn(this.enemies[enemyType], 1050, y);
     }, this);
     this.spawnerTimer.start();
 };
@@ -254,7 +254,7 @@ PlayScene._addPoints = function (points) {
 PlayScene._showGameOver = function () {
     this.hud.visible = false;
 
-    let gameOverText = this.game.add.text(480, 200, 'Game Over', {
+    let gameOverText = this.game.add.text(450, 200, 'Game Over', {
         font: '80px "Fugaz One", monospace',
         fill: '#ffa300'
     });
@@ -262,7 +262,7 @@ PlayScene._showGameOver = function () {
     gameOverText.stroke = '#7e2553';
     gameOverText.strokeThickness = 16;
 
-    let finalScoreText = this.game.add.text(480, 300, this.score + ' PTS', {
+    let finalScoreText = this.game.add.text(450, 300, this.score + ' PTS', {
         font: '30px "Fugaz One", monospace',
         fill: '#ffa300'
     });
@@ -270,7 +270,7 @@ PlayScene._showGameOver = function () {
     finalScoreText.stroke = '#7e2553';
     finalScoreText.strokeThickness = 8;
 
-    let restartText = this.game.add.text(480, 360, '- Play again -', {
+    let restartText = this.game.add.text(450, 360, '- Play again -', {
         font: '30px "Fugaz One", monospace',
         fill: '#ffa300'
     });
@@ -285,7 +285,7 @@ PlayScene._showGameOver = function () {
 };
 
 PlayScene._spawnCloud = function () {
-    let x = this.game.rnd.between(960, 1400);
+    let x = this.game.rnd.between(900, 1400);
     let y = this.game.rnd.between(30, 400);
 
     let cloud = this.clouds.getFirstExists(false);
