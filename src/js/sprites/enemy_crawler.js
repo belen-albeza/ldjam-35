@@ -3,6 +3,8 @@
 const MAX_HEALTH = 10;
 const MOVE_SPEED = 200;
 
+const CrawlerBullet = require('./crawler_bullet.js');
+
 function EnemyCrawler(game, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'enemy:crawler');
 
@@ -41,6 +43,19 @@ EnemyCrawler.prototype.flash = function () {
     this.animations.play('hit').onComplete.addOnce(function () {
         this.animations.play('move');
     }, this);
+};
+
+EnemyCrawler.prototype.shoot = function (group) {
+    let y = this.y - this.height;
+
+    // spawn shot
+    let shot = group.getFirstExists(false);
+    if (shot) {
+        shot.reset(this.x, y);
+    }
+    else {
+        group.add(new CrawlerBullet(this.game, this.x, y));
+    }
 };
 
 

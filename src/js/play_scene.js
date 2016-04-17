@@ -70,8 +70,17 @@ PlayScene.update = function () {
         this.ship.shoot(this.shipShots);
     }
 
+    // make crawlers to randomly shoot
+    this.enemies.crawlers.forEachAlive(function (enemy) {
+        if (this.game.rnd.between(0, 1000) < 15) {
+            enemy.shoot(this.enemyShots.crawlers);
+        }
+    }, this);
+
     // handle collisions
     this._collideShotsVsEnemies();
+
+
 };
 
 PlayScene._shapeShift = function () {
