@@ -39,7 +39,7 @@ Ship.prototype.move = function (dirX, dirY) {
 };
 
 
-Ship.prototype.shoot = function (groups) {
+Ship.prototype.shoot = function (groups, sfxBank) {
     let group = groups[this.mode];
 
     if (this.elapsed - this.lastTimestamp > 1 / SHOT_CADENCE[this.mode]) {
@@ -57,8 +57,9 @@ Ship.prototype.shoot = function (groups) {
             group.add(new SHOT_TYPE[this.mode](this.game, x, y));
         }
 
-        // update timestamp
+        // update timestamp & play sound
         this.lastTimestamp = this.elapsed;
+        sfxBank[this.mode].play();
     }
 };
 

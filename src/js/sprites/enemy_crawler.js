@@ -45,7 +45,7 @@ EnemyCrawler.prototype.flash = function () {
     }, this);
 };
 
-EnemyCrawler.prototype.shoot = function (group) {
+EnemyCrawler.prototype.shoot = function (group, sfx) {
     let y = this.y - this.height;
 
     // spawn shot
@@ -56,6 +56,7 @@ EnemyCrawler.prototype.shoot = function (group) {
     else {
         group.add(new CrawlerBullet(this.game, this.x, y));
     }
+    sfx.play();
 };
 
 

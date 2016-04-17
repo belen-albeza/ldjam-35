@@ -21,7 +21,7 @@ var PreloaderScene = {
         this.loadingBar.anchor.setTo(0, 0.5);
         this.load.setPreloadSprite(this.loadingBar);
 
-        // load here the assets for the game
+        // image assets
         this.game.load.image('background', 'images/background.png');
         this.game.load.image('ship:fighter', 'images/ship_base.png');
         this.game.load.image('ship:bomber', 'images/ship_bomber.png');
@@ -32,6 +32,16 @@ var PreloaderScene = {
             54, 54);
         this.game.load.spritesheet('enemy:crawler', 'images/enemy01.png',
             96, 36);
+
+        // audio assets
+        this.game.load.audio('hit', 'audio/hit.wav');
+        this.game.load.audio('ship_bullet', 'audio/ship_bullet.wav');
+        this.game.load.audio('enemy_bullet', 'audio/enemy_bullet.wav');
+        this.game.load.audio('bomb', 'audio/shoot_bomb.wav');
+        this.game.load.audio('explosion', 'audio/explosion.wav');
+        this.game.load.audio('shapeshift', 'audio/powerup.wav');
+        this.game.load.audio('background',
+            ['audio/background.mp3', 'audio/background.ogg']);
     },
 
     create: function () {

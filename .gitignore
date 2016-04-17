@@ -5,3 +5,4 @@ dist
 .publish
 gulp.config.json
 *.aseprite
+.DS_Store

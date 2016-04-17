@@ -56,6 +56,17 @@ PlayScene.init = function () {
 };
 
 PlayScene.create = function () {
+    this.sfx = {
+        explosion: this.game.add.audio('explosion'),
+        shipBullet: this.game.add.audio('ship_bullet'),
+        enemyBullet: this.game.add.audio('enemy_bullet'),
+        bomb: this.game.add.audio('bomb'),
+        hit: this.game.add.audio('hit'),
+        shift: this.game.add.audio('shapeshift')
+    };
+    this.backgroundMusic = this.game.add.audio('background');
+    this.backgroundMusic.loopFull(1.5);
+
     // create background
     this.game.add.image(0, 0, 'background');
 
@@ -100,30 +111,35 @@ PlayScene.create = function () {
 };
 
 PlayScene.update = function () {
-    // handle ship movement
-    let dirX = 0, dirY = 0;
-    if (this.keys.left.isDown) { dirX = -1; }
-    if (this.keys.right.isDown) { dirX = 1; }
-    if (this.keys.up.isDown) { dirY = -1; }
-    if (this.keys.down.isDown) { dirY = 1; }
-    this.ship.move(dirX, dirY);
+    if (this.ship.alive) {
+        // handle ship movement
+        let dirX = 0, dirY = 0;
+        if (this.keys.left.isDown) { dirX = -1; }
+        if (this.keys.right.isDown) { dirX = 1; }
+        if (this.keys.up.isDown) { dirY = -1; }
+        if (this.keys.down.isDown) { dirY = 1; }
+        this.ship.move(dirX, dirY);
 
-    // shoot if button is pressed
-    if (this.keys.spacebar.isDown) {
-        this.ship.shoot(this.shipShots);
+        // shoot if button is pressed
+        if (this.keys.spacebar.isDown) {
+            this.ship.shoot(this.shipShots,
+                {fighter: this.sfx.shipBullet, bomber: this.sfx.bomb});
+        }
     }
 
     // make crawlers to randomly shoot
     this.enemies.crawlers.forEachAlive(function (enemy) {
         if (this.game.rnd.between(0, 1000) < 15) {
-            enemy.shoot(this.enemyShots.crawlers);
+            enemy.shoot(this.enemyShots.crawlers, this.sfx.enemyBullet);
         }
     }, this);
 
     // handle collisions
     this._collideShotsVsEnemies();
-    this._collideEnemyShotsVsShip();
-    this._collideEnemiesVsShip();
+    if (this.ship.alive) {
+        this._collideEnemyShotsVsShip();
+        this._collideEnemiesVsShip();
+    }
 };
 
 PlayScene._shapeShift = function () {
@@ -135,6 +151,8 @@ PlayScene._shapeShift = function () {
         this.ship.destroy();
         this.ship = new Ship(this.game, position.x, position.y, mode);
         this.shipGroup.add(this.ship);
+
+        this.sfx.shift.play();
     }
 };
 
@@ -168,7 +186,11 @@ PlayScene._hitEnemy = function (shot, enemy) {
     shot.kill();
     if (!enemy.alive) {
         this._addPoints(50);
-        // TODO: explosion
+        this.sfx.explosion.play();
+        // TODO: create explosion
+    }
+    else {
+        this.sfx.hit.play('', 0, 2); // louder
     }
 };
 
@@ -178,12 +200,15 @@ PlayScene._hitShipWithShot = function (shot) {
 };
 
 PlayScene._hitShip = function () {
+    this.ship.kill();
     // TODO: big explosion
-    // TODO: proper game over overlay
-    this._wrathOfGod();
+    this.sfx.explosion.play();
+    this.spawnerTimer.stop();
+    this._showGameOver();
 };
 
 PlayScene._wrathOfGod = function () {
+    this.backgroundMusic.stop();
     this.spawnerTimer.destroy();
     this.game.state.restart();
 };
@@ -191,6 +216,33 @@ PlayScene._wrathOfGod = function () {
 PlayScene._addPoints = function (points) {
     this.score += points;
     this.scoreText.setText(this.score + ' PTS');
+};
+
+PlayScene._showGameOver = function () {
+    this.hud.visible = false;
+
+    let gameOverText = this.game.add.text(480, 250, 'Game Over', {
+        font: '40px Courier, monospace',
+        fill: '#fff'
+    });
+    gameOverText.anchor.setTo(0.5);
+
+    let finalScoreText = this.game.add.text(480, 310, this.score + ' PTS', {
+        font: '30px Courier, monospace',
+        fill: '#fff'
+    });
+    finalScoreText.anchor.setTo(0.5);
+
+    let restartText = this.game.add.text(480, 350, '- Play again -', {
+        font: '30px Courier, monospace',
+        fill: '#fff'
+    });
+    restartText.anchor.setTo(0.5);
+    restartText.inputEnabled = true;
+    restartText.input.useHandCursor = true;
+    restartText.events.onInputUp.add(function () {
+      this._wrathOfGod();
+    }, this);
 };
 
 
