@@ -1,7 +1,7 @@
 'use strict';
 
-const MOVE_SPEED = 125;
-const FUZZY_EPSILON = 3;
+const MOVE_SPEED = 375;
+const FUZZY_EPSILON = 10;
 const MAX_HEALTH = 3;
 
 function EnemyFighter(game, x, y, path) {

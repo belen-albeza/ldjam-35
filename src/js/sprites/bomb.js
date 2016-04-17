@@ -1,6 +1,6 @@
 'use strict';
 
-const MOVE_SPEED = 220;
+const GRAVITY = 500;
 const ATTACK = 3;
 
 function Bomb(game, x, y) {
@@ -21,7 +21,8 @@ Bomb.constructor = Bomb;
 
 Bomb.prototype.reset = function (x, y) {
     Phaser.Sprite.prototype.reset.call(this, x, y);
-    this.body.velocity.y = MOVE_SPEED;
+    this.body.gravity.y = GRAVITY;
+    this.body.velocity.y = GRAVITY / 3;
 };
 
 module.exports = Bomb;

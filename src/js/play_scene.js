@@ -26,7 +26,7 @@ PlayScene.create = function () {
     // create player's ship
     this.shipGroup = this.game.add.group();
 
-    this.ship = new Ship(this.game, 20, 100, Ship.SHAPE_BOMBER);
+    this.ship = new Ship(this.game, 60, 300, Ship.SHAPE_FIGHTER);
     this.shipGroup.add(this.ship);
 
     this.shipShots = {
@@ -38,12 +38,12 @@ PlayScene.create = function () {
 
     // TODO: temp
     let wave = new Wave(EnemyFighter, [
-        {x: 0, y: 0}, {x: 20, y: 30}, {x: 40, y: 60}, {x: 60, y: 90}
+        {x: 0, y: 0}, {x: 60, y: 90}, {x: 120, y: 180}, {x: 180, y: 270}
     ], [
-        {x: -100, y: 0}, {x: -120, y: -40}, {x: -450, y: -40}
+        {x: -300, y: 0}, {x: -360, y: -120}, {x: -1150, y: -120}
     ]);
 
-    wave.spawn(this.fighterGroup, 300, 95);
+    wave.spawn(this.fighterGroup, 1000, 285);
 };
 
 PlayScene.update = function () {

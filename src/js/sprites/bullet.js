@@ -1,6 +1,6 @@
 'use strict';
 
-const MOVE_SPEED = 220;
+const MOVE_SPEED = 660;
 const ATTACK = 1;
 
 function Bullet(game, x, y) {

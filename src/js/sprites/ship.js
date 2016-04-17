@@ -3,9 +3,9 @@
 const Bullet = require('./bullet.js');
 const Bomb = require('./bomb.js');
 
-const CADENCE = 5; // bullets / s
-const MOVE_SPEED = {fighter: 120, bomber: 90};
+const MOVE_SPEED = {fighter: 360, bomber: 270};
 const SHOT_TYPE = {fighter: Bullet, bomber: Bomb};
+const SHOT_CADENCE = { fighter: 5, bomber: 3}; // shots / s
 
 function Ship(game, x, y, mode) {
     Phaser.Sprite.call(this, game, x, y, 'ship:' + mode);
@@ -42,7 +42,7 @@ Ship.prototype.move = function (dirX, dirY) {
 Ship.prototype.shoot = function (groups) {
     let group = groups[this.mode];
 
-    if (this.elapsed - this.lastTimestamp > 1 / CADENCE) {
+    if (this.elapsed - this.lastTimestamp > 1 / SHOT_CADENCE[this.mode]) {
         // spawn shot
         let x = this.x + (this.mode === Ship.SHAPE_FIGHTER ?
             this.width / 2 : 0);

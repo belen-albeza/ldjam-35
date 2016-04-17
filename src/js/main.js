@@ -4,15 +4,6 @@ var PlayScene = require('./play_scene.js');
 
 
 var BootScene = {
-    init: function () {
-        // 4x scale
-        this.game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-        this.game.scale.setUserScale(4, 4);
-        // enable crisp rendering
-        this.game.renderer.renderSession.roundPixels = true;
-        Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
-    },
-
     preload: function () {
         // load here assets required for the loading screen
         this.game.load.image('preloader_bar', 'images/preloader_bar.png');
@@ -37,7 +28,7 @@ var PreloaderScene = {
         this.game.load.image('bullet', 'images/bullet.png');
         this.game.load.image('bomb', 'images/bomb.png');
         this.game.load.spritesheet('enemy:fighter', 'images/enemy00.png',
-            18, 18);
+            54, 54);
     },
 
     create: function () {
@@ -47,7 +38,7 @@ var PreloaderScene = {
 
 
 window.onload = function () {
-    var game = new Phaser.Game(320, 200, Phaser.AUTO, 'game');
+    var game = new Phaser.Game(960, 600, Phaser.AUTO, 'game');
 
     game.state.add('boot', BootScene);
     game.state.add('preloader', PreloaderScene);
