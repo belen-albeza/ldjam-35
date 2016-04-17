@@ -9,7 +9,7 @@ const Wave = require('./wave.js');
 
 let PlayScene = {};
 
-PlayScene.create = function () {
+PlayScene.init = function () {
     // set up input
     this.keys = this.game.input.keyboard.createCursorKeys();
     this.keys.spacebar = this.game.input.keyboard.addKey(
@@ -20,7 +20,9 @@ PlayScene.create = function () {
     this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.TAB);
 
     this.keys.tab.onDown.add(this._shapeShift, this);
+};
 
+PlayScene.create = function () {
     // create background
     this.game.add.image(0, 0, 'background');
 
@@ -79,8 +81,8 @@ PlayScene.update = function () {
 
     // handle collisions
     this._collideShotsVsEnemies();
-
-
+    this._collideEnemyShotsVsShip();
+    this._collideEnemiesVsShip();
 };
 
 PlayScene._shapeShift = function () {
@@ -105,6 +107,20 @@ PlayScene._collideShotsVsEnemies = function () {
     }, this);
 };
 
+PlayScene._collideEnemyShotsVsShip = function () {
+    Object.keys(this.enemyShots).forEach(function (shotKey) {
+        this.game.physics.arcade.overlap(this.enemyShots[shotKey], this.ship,
+            this._hitShipWithShot, null, this);
+    }, this);
+};
+
+PlayScene._collideEnemiesVsShip = function () {
+    Object.keys(this.enemies).forEach(function (enemyKey) {
+        this.game.physics.arcade.overlap(this.enemies[enemyKey], this.ship,
+            this._hitShip, null, this);
+    }, this);
+};
+
 
 PlayScene._hitEnemy = function (shot, enemy) {
     enemy.hit(shot.attack);
@@ -113,5 +129,22 @@ PlayScene._hitEnemy = function (shot, enemy) {
         // TODO: explosion
     }
 };
+
+PlayScene._hitShipWithShot = function (shot) {
+    shot.kill();
+    this._hitShip();
+};
+
+PlayScene._hitShip = function () {
+    // TODO: big explosion
+    // TODO: proper game over overlay
+    window.alert('Game Over');
+    this._wrathOfGod();
+};
+
+PlayScene._wrathOfGod = function () {
+    this.game.state.restart();
+};
+
 
 module.exports = PlayScene;
