@@ -1,7 +1,7 @@
 'use strict';
 
 const GRAVITY = 500;
-const ATTACK = 3;
+const ATTACK = 10;
 
 function Bomb(game, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'bomb');

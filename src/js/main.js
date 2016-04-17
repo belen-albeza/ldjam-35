@@ -29,6 +29,8 @@ var PreloaderScene = {
         this.game.load.image('bomb', 'images/bomb.png');
         this.game.load.spritesheet('enemy:fighter', 'images/enemy00.png',
             54, 54);
+        this.game.load.spritesheet('enemy:crawler', 'images/enemy01.png',
+            96, 36);
     },
 
     create: function () {

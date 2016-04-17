@@ -4,6 +4,7 @@
 
 const Ship = require('./sprites/ship.js');
 const EnemyFighter = require('./sprites/enemy_fighter.js');
+const EnemyCrawler = require('./sprites/enemy_crawler.js');
 const Wave = require('./wave.js');
 
 let PlayScene = {};
@@ -34,7 +35,10 @@ PlayScene.create = function () {
         bomber: this.game.add.group()
     };
 
-    this.fighterGroup = this.game.add.group();
+    this.enemies = {
+        fighters: this.game.add.group(),
+        crawlers: this.game.add.group()
+    };
 
     // TODO: temp
     let wave = new Wave(EnemyFighter, [
@@ -43,7 +47,11 @@ PlayScene.create = function () {
         {x: -300, y: 0}, {x: -360, y: -120}, {x: -1150, y: -120}
     ]);
 
-    wave.spawn(this.fighterGroup, 1000, 285);
+    wave.spawn(this.enemies.fighters, 1000, 285);
+
+    (new Wave(EnemyCrawler, [
+        {x: 0, y: 0}, {x: 200, y: 0}
+    ], [])).spawn(this.enemies.crawlers, 1000, 600);
 };
 
 PlayScene.update = function () {
@@ -77,11 +85,15 @@ PlayScene._shapeShift = function () {
 };
 
 PlayScene._collideShotsVsEnemies = function () {
-    this.game.physics.arcade.overlap(this.shipShots[Ship.SHAPE_FIGHTER],
-        this.fighterGroup, this._hitEnemy, null, this);
-    this.game.physics.arcade.overlap(this.shipShots[Ship.SHAPE_BOMBER],
-        this.fighterGroup, this._hitEnemy, null, this);
+    Object.keys(this.enemies).forEach(function (enemyKey) {
+        Object.keys(this.shipShots).forEach(function (shotKey) {
+            this.game.physics.arcade.overlap(
+                this.shipShots[shotKey], this.enemies[enemyKey],
+                this._hitEnemy, null, this);
+        }, this);
+    }, this);
 };
+
 
 PlayScene._hitEnemy = function (shot, enemy) {
     enemy.hit(shot.attack);

@@ -13,8 +13,6 @@ function EnemyFighter(game, x, y, path) {
     this.animations.add('move', [0], 1);
     this.animations.add('hit', [1, 2], 10);
 
-    this.animations.play('move');
-
     this.reset(x, y, path);
 }
 
@@ -24,6 +22,7 @@ EnemyFighter.constructor = EnemyFighter;
 
 EnemyFighter.prototype.reset = function (x, y, path) {
     Phaser.Sprite.prototype.reset.call(this, x, y, MAX_HEALTH);
+    this.animations.play('move');
 
     this.path = path;
     this.spawnPosition = {x: x, y: y};
