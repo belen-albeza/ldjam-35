@@ -1,5 +1,6 @@
 .overlay {
   background: url(images/background_splash.png) left top no-repeat;
+  background-size: cover;
   position: absolute;
   z-index: 1;
   top: 0;
@@ -14,16 +15,16 @@
 }
 
 .overlay h1 {
-  margin-top: 50px;
+  margin-top: 10vh;
   margin-bottom: 10px;
-  font-size: 120px;
+  font-size: 18vh;
 }
 
 .author {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  font-size: 40px;
+  font-size: 6vh;
 }
 
 .author p {
@@ -34,7 +35,7 @@
   position: absolute;
   bottom: 20px;
   left: 20px;
-  font-size: 36px;
+  font-size: 5vh;
   color: #fff;
   text-align: left;
   background: rgba(0, 0, 0, 0.5);
@@ -87,10 +88,11 @@
   font-size: 78px;
   color: #fff;
   outline: none !important;
-  position: absolute;
-  right: 20px;
-  bottom: 82px;
   text-shadow: 4px 4px #7e2553;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 #play:hover {
