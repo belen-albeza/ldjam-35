@@ -9,7 +9,6 @@ Initial scaffolding generated with [generator-gamejam](https://github.com/belen-
 
 You can play online in the following mirrors:
 
-- [belenalbeza.com](http://lab.belenalbeza.com/games/ldjam-35/)
 - [Github Pages](https://belen-albeza.github.io/ldjam-35/)
 - [itch.io](https://ladybenko.itch.io/sky-panic)
 
